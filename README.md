@@ -1,5 +1,7 @@
 #Git clone the repo
+
 	git clone https://github.com/apexontop/hablab.git
+	
 	cd /hablab
 
 
@@ -10,6 +12,7 @@
 
 
 #get config 
+
     aws eks --region eu-west-1 update-kubeconfig --name k8s-hablab-cluster
     
     cd /mnt/c/users/james.calleja/.kube
@@ -18,12 +21,14 @@
 
 
 #enable OIDC
+
     eksctl  utils associate-iam-oidc-provider --cluster=k8s-hablab-cluster --approve
 	
 	aws eks describe-cluster --name k8s-hablab-cluster --query "cluster.identity.oidc.issuer" --output text
         
 
-#install load balancer controller    	
+#install load balancer controller 
+   	
 	aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json 
 	
 	
@@ -43,6 +48,7 @@
 	
 	
 #Set up Iam role 
+
 	TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::${{aws_acct_num}}:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
 
 	echo '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "eks:Describe*", "Resource": "*" } ] }' > /tmp/iam-role-policy
@@ -52,6 +58,7 @@
 	aws iam put-role-policy --role-name HablabCodeBuildKubectlRole --policy-name eks-describe --policy-document file:///tmp/iam-role-policy
 	
 #patch aws-auth
+
 	ROLE="    - rolearn: arn:aws:iam::${{aws_acct_num}}:role/HablabCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
 
 	kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/aws-auth-patch.yml

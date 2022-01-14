@@ -7,6 +7,8 @@
 	
 	eksctl installed 
 	https://www.hackerxone.com/2021/08/20/steps-to-install-kubectl-eksctl-on-ubuntu-20-04/
+	
+	Where ever you see ${{aws_acct_num}} in this document replace with your account number
 
 #Git clone the repo
 

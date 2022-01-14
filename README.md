@@ -1,9 +1,20 @@
+#Prerequisites 
+
+	Linux machine
+	
+	awscli with valid keys
+	https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+	
+	eksctl installed 
+	https://www.hackerxone.com/2021/08/20/steps-to-install-kubectl-eksctl-on-ubuntu-20-04/
+
 #Git clone the repo
 
 	git clone https://github.com/apexontop/hablab.git
 	
 	cd /hablab
 
+#Edit eks-cluster.yaml with correct subnets and region
 
 #Create cluster based on eks-cluster.yaml
     
@@ -11,7 +22,7 @@
     eksctl create cluster -f eks-cluster.yaml
 
 
-#get config 
+#get config amend paths for your shell 
 
     aws eks --region eu-west-1 update-kubeconfig --name k8s-hablab-cluster
     

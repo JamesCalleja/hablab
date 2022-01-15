@@ -91,6 +91,13 @@
 	
 	kubectl get service hello-world -o wide
 	
+#Set up auto scaling 
+
+	kubectl autoscale deployment hello-world \
+      --cpu-percent=50 \
+      --min=1  \
+      --max=10
+	
 	
 #Clean up 
 	
@@ -99,5 +106,6 @@
 	goto S3 empty and delete the bucket 
 	goto IAM delete HablabCodeBuildKubectlRole and AWSLoadBalancerControllerIAMPolicy
 	goto cloudwatch and delete log groups
+	goto EC2 delete load balancer
 	
 	

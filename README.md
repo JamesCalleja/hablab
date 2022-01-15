@@ -42,6 +42,8 @@
 
 #install load balancer controller 
    	
+	cd /mnt/c/opscode/hablab
+	
 	aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json 
 	
 	
@@ -51,7 +53,7 @@
 	  --cluster=k8s-hablab-cluster \
 	  --namespace=kube-system \
 	  --name=aws-load-balancer-controller \
-	  --attach-policy-arn=arn:aws:iam::${{aws_acct_num}}:policy/AWSLoadBalancerControllerIAMPolicy \
+	  --attach-policy-arn=arn:aws:iam::394990067255:policy/AWSLoadBalancerControllerIAMPolicy \
 	  --override-existing-serviceaccounts \
 	  --approve
 	
@@ -62,7 +64,7 @@
 	
 #Set up Iam role 
 
-	TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::${{aws_acct_num}}:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
+	TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::394990067255:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
 
 	echo '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "eks:Describe*", "Resource": "*" } ] }' > /tmp/iam-role-policy
 
@@ -72,7 +74,7 @@
 	
 #patch aws-auth
 
-	ROLE="    - rolearn: arn:aws:iam::${{aws_acct_num}}:role/HablabCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
+	ROLE="    - rolearn: arn:aws:iam::394990067255:role/HablabCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
 
 	kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/aws-auth-patch.yml
 
@@ -86,3 +88,14 @@
 	aws cloudformation create-stack --stack-name hablab-cicd-pipeline --template-body file://ci-cd-codepipeline.cfn.yml --capabilities CAPABILITY_NAMED_IAM
 	
 	kubectl get service hello-k8s -o wide
+	
+	
+#Clean up 
+	
+	Delete all the cloudformation stacks 
+	goto ECR and delete the repo
+	goto S3 empty and delete the bucket 
+	goto IAM delete HablabCodeBuildKubectlRole and AWSLoadBalancerControllerIAMPolicy
+	goto cloudwatch and delete log groups
+	
+	

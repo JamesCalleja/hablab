@@ -18,7 +18,7 @@ Parameters:
   GitSourceRepo:
     Type: String
     Description: GitHub source repository - must contain a Dockerfile and buildspec.yml in the base
-    Default: eks-workshop-sample-api-service-go
+    Default: HelloWorld
     MinLength: 1
     MaxLength: 100
     ConstraintDescription: You must enter a GitHub repository name
@@ -35,7 +35,7 @@ Parameters:
     Type: String
     NoEcho: true
     Description: GitHub API token - see https://github.com/blog/1509-personal-api-tokens
-    Default: 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
+    Default: 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
     MinLength: 3
     MaxLength: 100
     ConstraintDescription: You must enter a GitHub personal access token

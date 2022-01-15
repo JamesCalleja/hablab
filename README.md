@@ -14,7 +14,7 @@
 
 	git clone https://github.com/apexontop/hablab.git
 	
-	cd /hablab
+	cd hablab
 
 #Edit eks-cluster.yaml with correct subnets and region
 
@@ -31,6 +31,8 @@
     cd /mnt/c/users/james.calleja/.kube
     
     cp ~/.kube/config  ./config
+	
+	cd /mnt/c/opscode/hablab
 
 
 #enable OIDC
@@ -42,8 +44,6 @@
 
 #install load balancer controller 
    	
-	cd /mnt/c/opscode/hablab
-	
 	aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json 
 	
 	
@@ -85,6 +85,8 @@
 	
 #Deploy app 	
 
+#Edit line 38 of ci-cd-codepipeline.cfn.yml with the key provided 
+	
 	aws cloudformation create-stack --stack-name hablab-cicd-pipeline --template-body file://ci-cd-codepipeline.cfn.yml --capabilities CAPABILITY_NAMED_IAM
 	
 	kubectl get service hello-k8s -o wide

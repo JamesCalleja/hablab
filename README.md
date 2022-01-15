@@ -89,7 +89,7 @@
 	
 	aws cloudformation create-stack --stack-name hablab-cicd-pipeline --template-body file://ci-cd-codepipeline.cfn.yml --capabilities CAPABILITY_NAMED_IAM
 	
-	kubectl get service hello-k8s -o wide
+	kubectl get service hello-world -o wide
 	
 	
 #Clean up 

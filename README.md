@@ -1,6 +1,9 @@
 #Prerequisites 
 
 	Linux machine
+
+	git 
+	https://linuxize.com/post/how-to-install-git-on-ubuntu-18-04/
 	
 	awscli with valid keys
 	https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html

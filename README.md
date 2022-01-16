@@ -78,6 +78,8 @@
 	
 	aws cloudformation create-stack --stack-name hablab-cicd-pipeline --template-body file://ci-cd-codepipeline.cfn.yml --capabilities CAPABILITY_NAMED_IAM
 	
+
+#Get the loadbalancer endpoint (this will take a few mintues to work)
 	kubectl get service hello-world -o wide
 	
 #Set up auto scaling 

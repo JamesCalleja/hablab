@@ -24,17 +24,6 @@
     eksctl create cluster -f eks-cluster.yaml
 
 
-#get config amend paths for your shell 
-
-    aws eks --region eu-west-1 update-kubeconfig --name k8s-hablab-cluster
-    
-    cd /mnt/c/users/james.calleja/.kube
-    
-    cp ~/.kube/config  ./config
-	
-	cd /mnt/c/opscode/hablab
-
-
 #enable OIDC
 
     eksctl  utils associate-iam-oidc-provider --cluster=k8s-hablab-cluster --approve
@@ -53,7 +42,7 @@
 	  --cluster=k8s-hablab-cluster \
 	  --namespace=kube-system \
 	  --name=aws-load-balancer-controller \
-	  --attach-policy-arn=arn:aws:iam::${{aws_acct_num}}:policy/AWSLoadBalancerControllerIAMPolicy \
+	  --attach-policy-arn=arn:aws:iam::394990067255:policy/AWSLoadBalancerControllerIAMPolicy \
 	  --override-existing-serviceaccounts \
 	  --approve
 	
@@ -64,7 +53,7 @@
 	
 #Set up Iam role 
 
-	TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::${{aws_acct_num}}:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
+	TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::394990067255:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
 
 	echo '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "eks:Describe*", "Resource": "*" } ] }' > /tmp/iam-role-policy
 
@@ -74,7 +63,7 @@
 	
 #patch aws-auth
 
-	ROLE="    - rolearn: arn:aws:iam::${{aws_acct_num}}:role/HablabCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
+	ROLE="    - rolearn: arn:aws:iam::394990067255:role/HablabCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
 
 	kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > /tmp/aws-auth-patch.yml
 

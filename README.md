@@ -88,6 +88,7 @@
 	
 
 #Get the loadbalancer endpoint (this will take a few mintues to work)
+
 	kubectl get service hello-world -o wide
 	
 #Set up auto scaling 

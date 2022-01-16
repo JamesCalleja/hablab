@@ -37,6 +37,7 @@
 	
 	
 #Create a service account and map the policy to it  
+#Be sure to replace ${{aws_acct_num}}
 
 	eksctl create iamserviceaccount \
 	  --cluster=k8s-hablab-cluster \
@@ -52,6 +53,8 @@
 	
 	
 #Set up Iam role 
+#Be sure to replace ${{aws_acct_num}}
+
 
 	TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::${{aws_acct_num}}:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
 
@@ -62,6 +65,8 @@
 	aws iam put-role-policy --role-name HablabCodeBuildKubectlRole --policy-name eks-describe --policy-document file:///tmp/iam-role-policy
 	
 #patch aws-auth
+#Be sure to replace ${{aws_acct_num}}
+
 
 	ROLE="    - rolearn: arn:aws:iam::${{aws_acct_num}}:role/HablabCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
 

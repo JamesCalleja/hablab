@@ -36,7 +36,8 @@
 	aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json 
 	
 	
-#Create a service account and map the policy to it  
+#Create a service account and map the policy to it 
+
 #Be sure to replace ${{aws_acct_num}}
 
 	eksctl create iamserviceaccount \
@@ -53,6 +54,7 @@
 	
 	
 #Set up Iam role 
+
 #Be sure to replace ${{aws_acct_num}}
 
 
@@ -65,6 +67,7 @@
 	aws iam put-role-policy --role-name HablabCodeBuildKubectlRole --policy-name eks-describe --policy-document file:///tmp/iam-role-policy
 	
 #patch aws-auth
+
 #Be sure to replace ${{aws_acct_num}}
 
 

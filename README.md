@@ -104,7 +104,7 @@
 	
 #Clean up 
 	
-	Delete all the cloudformation stacks 
+	goto CF and delete all the cloudformation stacks 
 	goto ECR and delete the repo
 	goto S3 empty and delete the bucket 
 	goto IAM delete HablabCodeBuildKubectlRole and AWSLoadBalancerControllerIAMPolicy

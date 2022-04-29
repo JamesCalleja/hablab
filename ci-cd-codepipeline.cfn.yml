@@ -35,7 +35,7 @@ Parameters:
     Type: String
     NoEcho: true
     Description: GitHub API token - see https://github.com/blog/1509-personal-api-tokens
-    Default: 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
+    Default: 
     MinLength: 3
     MaxLength: 100
     ConstraintDescription: You must enter a GitHub personal access token
@@ -43,7 +43,7 @@ Parameters:
   GitHubUser:
     Type: String
     Description: GitHub username or organization
-    Default: apexontop
+    Default: JamesCalleja
     MinLength: 3
     MaxLength: 100
     ConstraintDescription: You must enter a GitHub username or organization

@@ -15,7 +15,7 @@
 
 #Git clone the repo
 
-	git clone https://github.com/apexontop/hablab.git
+	git clone https://github.com/JamesCalleja/hablab.git
 	
 	cd hablab
 
